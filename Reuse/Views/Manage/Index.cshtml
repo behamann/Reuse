@@ -1,0 +1,178 @@
+﻿@model Reuse.Models.IndexViewModel
+@{
+    ViewBag.Title = "Gerenciar";
+    Model.carregarMensagens(User.Identity.Name);
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Verifique seus dados</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Nome:</dt>
+        <dd>@Model.usuario.nome</dd>
+        <dt>Email:</dt>
+        <dd>@Model.usuario.email</dd>
+        <dt>Senha:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Troque sua senha", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Criar", "SetPassword")
+            }
+            ]
+        </dd>
+        <dt>Logins Externos:</dt>
+        <dd>
+            @Model.Logins.Count [
+            @Html.ActionLink("Gerenciar", "ManageLogins") ]
+        </dd>
+        <dt>Endereço:</dt>
+        <dd>@Model.usuario.endereco</dd>
+        <dt>CEP:</dt>
+        <dd>@Model.usuario.cep</dd>
+        <dt>Bairro:</dt>
+        <dd>@Model.usuario.bairro</dd>
+        <dt>Cidade:</dt>
+        <dd>@Model.usuario.cidade</dd>
+        <dt>Estado:</dt>
+        <dd>@Model.usuario.estado</dd>
+        <dt>Phone Number:</dt>
+        <dd>
+            @(Model.PhoneNumber ?? "None") [
+            @if (Model.PhoneNumber != null)
+            {
+                @Html.ActionLink("Change", "AddPhoneNumber")
+                @: &nbsp;|&nbsp;
+                @Html.ActionLink("Remove", "RemovePhoneNumber")
+            }
+            else
+            {
+                @Html.ActionLink("Add", "AddPhoneNumber")
+            }
+            ]
+        </dd>
+
+        <dt>Two-Factor Authentication:</dt>
+        <dd>
+            @if (Model.TwoFactor)
+            {
+                using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>Enabled
+                        <input type="submit" value="Disable" class="btn btn-link" />
+                    </text>
+                }
+            }
+            else
+            {
+                using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <text>Disabled
+                        <input type="submit" value="Enable" class="btn btn-link" />
+                    </text>
+                }
+            }
+        </dd>
+        <dt>Telefone:</dt>
+        <dd>@Model.usuario.telefone</dd>
+        <dt>Celular:</dt>
+        <dd>@Model.usuario.celular</dd>
+        <dt>Itens Pedidos:</dt>
+        <dd>@Model.usuario.itensPedidos</dd>
+        <dt>Itens Doados:</dt>
+        <dd>@Model.usuario.itensDoados</dd>
+        <dt>Medalha:</dt>
+        <dd>@Model.usuario.medalha</dd>
+        @*
+            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
+             
+             See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
+             
+             Uncomment the following block after you have set up two-factor authentication
+        *@
+        @*  
+            <dt>Phone Number:</dt>
+            <dd>
+                @(Model.PhoneNumber ?? "None") [
+                @if (Model.PhoneNumber != null)
+                {
+                    @Html.ActionLink("Change", "AddPhoneNumber")
+                    @: &nbsp;|&nbsp;
+                    @Html.ActionLink("Remove", "RemovePhoneNumber")
+                }
+                else
+                {
+                    @Html.ActionLink("Add", "AddPhoneNumber")
+                }
+                ]
+            </dd>
+        *@
+
+        @*<dt>Two-Factor Authentication:</dt>
+        <dd>
+            <p>
+                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                for details on setting up this ASP.NET application to support two-factor authentication.
+            </p>
+            if (Model.TwoFactor)
+                {
+                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>Enabled
+                        <input type="submit" value="Disable" class="btn btn-link" />
+                        </text>
+                    }
+                }
+                else
+                {
+                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <text>Disabled
+                        <input type="submit" value="Enable" class="btn btn-link" />
+                        </text>
+                    }
+                }
+        </dd>*@
+    </dl>
+</div>
+<div>
+    @if (Model.mensagens.Count != 0)
+    {
+        foreach (var item in Model.mensagens)
+        {
+            <div class="alert alert-warning">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <p>Nova mensagem de: @Html.ActionLink(item.PessoaRem, "Details/"+ item.RemID, "Usuarios")</p>
+                @if(item.TipoAnuncio == "Pedidos")
+                {
+                    <p>Quero doar o item @Html.ActionLink(item.Conteudo, "Details/" + item.AnuncioID, item.TipoAnuncio) para você! Acesse meu perfil para contato!</p>
+                }
+                else
+                {
+                    <p>Preciso do seu item: @Html.ActionLink(item.Conteudo, "Details/" + item.AnuncioID, item.TipoAnuncio). Acesse meu perfil para contato!</p>
+                }                
+                @Html.ActionLink("Confirmar troca", "Confirmar/" + item.AnuncioID, item.TipoAnuncio, new { MensagemID =  item.MensagemID}, null);
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <p>Não há novas mensagens para você!</p>
+        </div>
+    }
+
+</div>

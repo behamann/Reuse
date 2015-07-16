@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    string img;
+    Reuse.Controllers.OfertasController o = new Reuse.Controllers.OfertasController();
+    Reuse.Controllers.PedidosController p = new Reuse.Controllers.PedidosController();
+    var ofertas = o.getTop6Ofertas();
+    var pedidos = p.getTop6Pedidos();
+}
+
+<div class="jumbotron">
+    <h1>Reuse</h1>
+    <p class="lead">Somos uma comunidade aonde todos podem ofertar o que não precisam e pedir pelo que necessita.
+    Gostou? Cadastre-se e faça parte dessa campanha! :) </p>
+</div>
+
+<p class="pull-right">
+    @Html.ActionLink("Criar Doação", "Create", "Ofertas")
+</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Ofertas</h2>
+        <p> Aqueles itens que estão no fundo de sua garagem, no qual não se vendem fácil, podem ser anunciados aqui,
+            alguém que necessite disso pode entrar em contato com você e pedir pelo item, fazendo você ganhar mais espaço e
+            ainda ajudando quem precisa.
+        </p>
+        <p>@Html.ActionLink("Criar Oferta", "Create", "Ofertas", null, htmlAttributes: new { @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Pedidos</h2>
+        <p>Precisa de alguma coisa? Crie um pedido e espere uma alma generosa ajudar você, recomendamos também criar pedidos de
+        coleta de itens de difícil descarte, pois assim várias pessoas saberão quem coleta os mesmos.</p>
+        <p>@Html.ActionLink("Criar Pedido", "Create", "Pedidos", null, htmlAttributes: new { @class = "btn btn-default" })</p>
+    </div>
+    <div class="col-md-4">
+        <h2>Caridades</h2>
+        <p>Suportamos também instituições de caridade para que essas se cadastrem no site, possam exibir suas causas e 
+        pedir por doações, encorajamos os usuários a doar seus itens desnecessários para essas instituições, levando a ajuda para
+        quem mais precisa</p>
+        <p>@Html.ActionLink("Ver Caridades", "Index", "Instituicaos", null, htmlAttributes: new { @class = "btn btn-default" })</p>
+    </div>
+</div>
+
+<p>Ultimas ofertas</p>
+<div class="row">
+    @foreach (var item in ofertas)
+    {
+        if (item.img == null)
+        {
+            img = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png";
+        }
+        else
+        {
+            img = item.img;
+        }
+
+        <div class="col-lg-4">
+            <div class="col-lg-6">
+                <img src="img" width="100" height="100" />
+            </div>
+            <div class="col-lg-6">
+                <p>@Html.ActionLink(item.titulo, "Details/"+ item.anuncioID, "Ofertas")</p>
+                <p>Condição: @Html.DisplayFor(modelItem => item.condicao)</p>
+                <p>Localização: @Html.DisplayFor(modelItem => item.pessoa.cidade)</p>
+            </div>
+        </div>
+    }
+</div>
+<br />
+<p>Ultimos pedidos</p>
+<div class="row">
+    @foreach (var item in pedidos)
+    {
+        if (item.img == null)
+        {
+            img = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png";
+        }
+        else
+        {
+            img = item.img;
+        }
+
+        <div class="col-lg-4">
+            <div class="col-lg-6">
+                <img src="img" width="100" height="100" />
+            </div>
+            <div class="col-lg-6">
+                <p>@Html.ActionLink(item.titulo, "Details/" + item.anuncioID, "Pedidos")</p>
+                <p>Condição: @Html.DisplayFor(modelItem => item.condicao)</p>
+                <p>Localização: @Html.DisplayFor(modelItem => item.pessoa.cidade), @Html.DisplayFor(modelItem => item.pessoa.estado)</p>
+            </div>
+        </div>
+    }
+</div>

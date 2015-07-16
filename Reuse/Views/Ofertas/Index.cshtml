@@ -1,0 +1,107 @@
+﻿@model PagedList.IPagedList<Reuse.Models.Anuncio>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+    var categorias = Reuse.Models.Categoria.getCategorias();
+    string img;
+}
+
+@if (ViewBag.success == 1)
+{
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Sucesso!</strong> Aguarde o retorno do outro usuário para entrar em contato!
+    </div>
+}
+@if (ViewBag.success == 2)
+{
+    <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Sucesso!</strong> O anuncio foi encerrado, obrigado por usar o Reuse! Volte Sempre! :D
+    </div>
+}
+@if (ViewBag.error == 1)
+{
+    <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Erro</strong> Não é possível pedir seu próprio item.
+    </div>
+}
+@if (ViewBag.error == 2)
+{
+    <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Erro</strong> Você não está autenticado no site, faça o login ou cadastre-se ao lado.
+    </div>
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Criar Doação", "Create")
+</p>
+
+<div class="col-lg-2">
+    <ul>
+        @foreach (Reuse.Models.Categoria categoria in categorias)
+        {
+            <li>
+                @Html.ActionLink(categoria.titulo.ToString(), "Index", new RouteValueDictionary { { "categoria", categoria.titulo.ToString() } })
+            </li>
+        }
+        <li>@Html.ActionLink("Mostrar todos", "Index")</li>
+    </ul>
+</div>
+
+<span>Você está em: Ofertas</span>
+@using (Html.BeginForm("Index", "Ofertas", FormMethod.Get))
+{
+    <p>
+        Procurar por título: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Ir" />
+    </p>
+}
+
+<div class="col-lg-10">
+    @foreach (var item in Model)
+    {
+        if (item.img == null)
+        {
+            img = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png";
+        }
+        else
+        {
+            img = item.img;
+        }
+
+        <div>
+            <div class="col-lg-2">
+                <img src="img" width="100" height="100" />
+            </div>
+            <div class="col-lg-10">
+                <p>@Html.ActionLink(item.titulo, "Details", new { id = item.anuncioID })</p>
+                <p>Condição: @Html.DisplayFor(modelItem => item.condicao)</p>
+                <p>Anuciado por: @Html.DisplayFor(modelItem => item.pessoa.nome)</p>
+                <p>Categoria: @Html.DisplayFor(modelItem => item.categoria.titulo) - @Html.DisplayFor(modelItem => item.subCategoria)</p>
+                <a class="btn btn-default" target="popup"
+                   onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://localhost:44300/Ofertas/Details/@item.anuncioID', 'name', 'width=600,height=400')">
+                    <img src="http://wap.timotta.com/assets/logo-facebook-pequeno-075bec2439cc1f5d31f6e50b2592926a.gif" /> Compartilhar
+                </a>
+                <a class="btn btn-default" target="popup"
+                   onclick="window.open('https://twitter.com/intent/tweet?text=Olhem só: @item.titulo para doação. Acesse https://localhost:44300/Ofertas/Details/@item.anuncioID para ver mais.', 'name', 'width=600,height=400')">
+                    <img src="https://g.twimg.com/twitter-bird-16x16.png" /> Tweet
+                </a>
+            </div>
+        </div>
+        <hr />
+    }
+    <br />
+    <div style="display:block;margin-top: 15%;">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+        @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>

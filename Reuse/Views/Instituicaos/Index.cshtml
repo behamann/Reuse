@@ -1,0 +1,55 @@
+﻿@model PagedList.IPagedList<Reuse.Models.Instituicao>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    ViewBag.Title = "Index";
+    var tipos = Reuse.Models.Instituicao.getTipos();
+    var selectList = tipos.Select((r, index) => new SelectListItem { Text = r.titulo, Value = index.ToString() });
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@using (Html.BeginForm("Index", "Instituicaos", FormMethod.Get))
+{
+    <div class="col-lg-3">
+        <div>
+            Nome: @Html.TextBox("SearchNome", ViewBag.NomeFilter as string)
+        </div>
+        <div>
+            Tipo: @Html.DropDownList("SearchTipo", selectList, "");
+        </div>
+        <div>
+            CEP: @Html.TextBox("SearchCEP", ViewBag.CepFilter as string)
+        </div>
+        <input type="submit" value="Ir" />
+    </div>
+}
+
+    <div class="col-lg-9">
+        @foreach (var item in Model)
+        {
+            <div>
+                <div class="col-lg-2">
+                    <img src="img" width="100" height="100" />
+                </div>
+                <div class="col-lg-10">
+                    <p>@Html.ActionLink(item.nome, "Details", new { id = item.pessoaID })</p>
+                    <p>Tipo de instituição: @Html.DisplayFor(modelItem => item.tipo.titulo)</p>
+                    <p>Contato: @Html.DisplayFor(modelItem => item.nomeContato)</p>
+                    <p>Telefone: @Html.DisplayFor(modelItem => item.telefone)</p>
+                </div>
+            </div>
+            <hr />
+        }
+        <br />
+        <div style="display:block;margin-top: 15%;">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, NomeFilter = ViewBag.NomeFilter, CepFilter = ViewBag.CepFilter }))
+        </div>
+    </div>

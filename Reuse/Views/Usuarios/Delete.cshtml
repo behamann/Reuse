@@ -1,0 +1,112 @@
+﻿@model Reuse.Models.Usuario
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.endereco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.endereco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cep)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cep)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.celular)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.celular)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itensDoados)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itensDoados)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itensPedidos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itensPedidos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.medalha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.medalha)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

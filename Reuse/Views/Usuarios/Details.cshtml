@@ -1,0 +1,106 @@
+﻿@model Reuse.Models.Usuario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.endereco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.endereco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cep)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cep)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cidade)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.celular)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.celular)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itensDoados)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itensDoados)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.itensPedidos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.itensPedidos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.medalha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.medalha)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.pessoaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

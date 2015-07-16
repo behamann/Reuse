@@ -1,0 +1,116 @@
+﻿@model Reuse.Models.Anuncio
+
+@{
+    ViewBag.Title = "Criar oferta";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Crie uma oferta</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.titulo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.titulo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.condicao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="condicao" class="form-control">
+                    <option value="Consertavel">Consertável</option>
+                    <option value="Defeituoso">Defeituoso</option>
+                    <option value="EmBomEstado">Em bom estado</option>
+                    <option value="Novo">Novo</option>
+                    <option value="SemiNovo">Semi novo</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.condicao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.categoriaID, "Categoria", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("categoriaID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.categoriaID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.subCategoria, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="subCategoria" class="form-control" id="subCategoria">
+                    <option selected disabled>Selecione uma categoria</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.subCategoria, "", new { @class = "text-danger" })
+            </div>
+        </div>        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.descricao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.descricao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.descricao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.img, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.img, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.img, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+
+    var cat = document.getElementById("categoriaID");
+    var subCat = document.getElementById("subCategoria");
+    var i = 0;
+    cat.addEventListener("change", function () {
+        var id = cat.options[cat.selectedIndex].value;
+        $.ajax({            
+            dataType: "json",
+            type: "GET",
+            url: "/Subcategorias/GetSubCategorias/"+id,
+            success: function (dados) {
+                while (subCat.firstChild) {
+                    subCat.removeChild(subCat.firstChild);
+                }
+                for (var i = 0; i < dados.length; i++) {
+                    console.log(dados[i]);                    
+                    var opt = document.createElement("OPTION")
+                    opt.text = dados[i].Nome;
+                    opt.value = dados[i].Nome;
+                    subCat.appendChild(opt);
+                }
+            }
+        });
+    }); 
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

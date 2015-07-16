@@ -1,0 +1,80 @@
+﻿@model Reuse.Models.Anuncio
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Anuncio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.categoria.titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.categoria.titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.pessoa.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pessoa.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.subCategoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.subCategoria)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.condicao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.condicao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.descricao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tipo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Reuse.Models.SubCategoria>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.categoria.titulo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.titulo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.categoria.titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.titulo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.subCategoriaID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.subCategoriaID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.subCategoriaID })
+        </td>
+    </tr>
+}
+
+</table>
