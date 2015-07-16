@@ -183,6 +183,7 @@
     <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Controllers\PedidosController.cs" />
     <Compile Include="Controllers\PessoasController.cs" />
+    <Compile Include="Controllers\RequireHttpsAttribute.cs" />
     <Compile Include="Controllers\SubCategoriasController.cs" />
     <Compile Include="Controllers\TiposController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
