@@ -19,20 +19,24 @@ namespace Reuse.Models
         {
         }
 
-        public System.Data.Entity.DbSet<Reuse.Models.Tipo> Tipoes { get; set; }
+        public DbSet<Tipo> Tipoes { get; set; }
 
-        public System.Data.Entity.DbSet<Reuse.Models.Usuario> Usuarios { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
-        public System.Data.Entity.DbSet<Reuse.Models.Instituicao> Instituicaos { get; set; }
+        public DbSet<Instituicao> Instituicaos { get; set; }
 
-        public System.Data.Entity.DbSet<Reuse.Models.Pessoa> Pessoas { get; set; }
+        public DbSet<Pessoa> Pessoas { get; set; }
 
-        public System.Data.Entity.DbSet<Reuse.Models.Categoria> Categorias { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
 
-        public System.Data.Entity.DbSet<Reuse.Models.SubCategoria> SubCategorias { get; set; }
+        public DbSet<SubCategoria> SubCategorias { get; set; }
 
-        public System.Data.Entity.DbSet<Reuse.Models.Anuncio> Anuncios { get; set; }
+        public DbSet<Anuncio> Anuncios { get; set; }
 
-        public System.Data.Entity.DbSet<Reuse.Models.Mensagem> Mensagems { get; set; }
+        public DbSet<Mensagem> Mensagems { get; set; }
+
+        public DbSet<Imagem> Imagens { get; set; }
+
+        public DbSet<Avatar> Avatar { get; set; }
     }
 }

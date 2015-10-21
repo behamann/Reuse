@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Reuse.Models;
+using System.Collections.Generic;
+using System.Drawing;
+using Reuse.Classes;
 
 namespace Reuse.Controllers
 {
@@ -147,7 +150,7 @@ namespace Reuse.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model, HttpPostedFileBase upload)
         {
             if (ModelState.IsValid)
             {
@@ -162,13 +165,41 @@ namespace Reuse.Controllers
                     u.endereco = model.endereco;
                     u.cep = model.cep;
                     u.bairro = model.bairro;
-                    u.cidade = model.cidade;
-                    u.estado = model.estado;
+                    //TO DO: obter endereço a partir de api de consulta de cep
                     u.telefone = model.telefone;
                     u.celular = model.celular;
                     u.itensDoados = 0;
                     u.itensPedidos = 0;
                     u.medalha = false;
+
+                    var response = Servicos.obterEnderecoDoViaCep(u.cep);
+                    u.cidade = response.Localidade;
+                    u.estado = response.UF;
+
+                    if (upload != null && upload.ContentLength > 0)
+                    {
+                        var avatar = new Avatar
+                        {
+                            FileName = System.IO.Path.GetFileName(upload.FileName),
+                            ContentType = upload.ContentType
+                        };
+                        using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                        {
+                            avatar.Content = reader.ReadBytes(upload.ContentLength);
+                        }
+                        u.avatar = new List<Avatar> { avatar };
+                    }
+                    else
+                    {
+                        var avatar = new Avatar
+                        {
+                            FileName = "Não Disponivel",
+                            ContentType = "image/png"
+                        };
+                        Bitmap bmp = new Bitmap(Image.FromFile(Server.MapPath("~/assets/css/images/usuario_0.png")));
+                        avatar.Content = Servicos.imageToByteArray(bmp);
+                        u.avatar = new List<Avatar> { avatar };
+                    }
                     us.Create(u);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
@@ -358,6 +389,8 @@ namespace Reuse.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                    ViewBag.Nome = loginInfo.DefaultUserName;
+                    ViewBag.Email = loginInfo.Email;
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
@@ -367,7 +400,7 @@ namespace Reuse.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl, HttpPostedFileBase upload)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -389,6 +422,49 @@ namespace Reuse.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        UsuariosController us = new UsuariosController();
+                        Usuario u = new Usuario();
+                        u.nome = model.nome;
+                        u.email = model.Email;
+                        u.endereco = model.endereco;
+                        u.cep = model.cep;
+                        u.bairro = model.bairro;
+                        u.telefone = model.telefone;
+                        u.celular = model.celular;
+                        u.itensDoados = 0;
+                        u.itensPedidos = 0;
+                        u.medalha = false;
+
+                        var response = Servicos.obterEnderecoDoViaCep(u.cep);
+                        u.cidade = response.Localidade;
+                        u.estado = response.UF;
+
+                        if (upload != null && upload.ContentLength > 0)
+                        {
+                            var avatar = new Avatar
+                            {
+                                FileName = System.IO.Path.GetFileName(upload.FileName),
+                                ContentType = upload.ContentType
+                            };
+                            using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                            {
+                                avatar.Content = reader.ReadBytes(upload.ContentLength);
+                            }
+                            u.avatar = new List<Avatar> { avatar };
+                        }
+                        else
+                        {
+                            var avatar = new Avatar
+                            {
+                                FileName = "Não Disponivel",
+                                ContentType = "image/png"
+                            };
+                            Bitmap bmp = new Bitmap(Image.FromFile(Server.MapPath("~/assets/css/images/usuario_0.png")));
+                            avatar.Content = Servicos.imageToByteArray(bmp);
+                            u.avatar = new List<Avatar> { avatar };
+                        }
+
+                        us.Create(u);
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                         return RedirectToLocal(returnUrl);
                     }

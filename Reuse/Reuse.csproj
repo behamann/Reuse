@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +39,25 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="DefaultConnection-Deployment" Order="1">
+          <Destination Path="Server=mssql1.gear.host%3bDatabase=reuseusers%3bUser Id=reuseusers%3bPassword=Jg2IC_OH73#I%3b" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28LocalDb%29\MSSQLLocalDB%3bAttachDbFilename=|DataDirectory|\aspnet-Reuse-20150613042530.mdf%3bInitial Catalog=aspnet-Reuse-20150613042530%3bIntegrated Security=True" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Release\AutoScripts\DefaultConnection-Deployment_SchemaAndData.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+        <ObjectGroup Name="ReuseContext-Deployment" Order="2">
+          <Destination Path="Server=mssql2.gear.host%3bDatabase=reuse%3bUser Id=reuse%3bPassword=Di95Pk!#cU08%3b" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28localdb%29\MSSQLLocalDB%3bAttachDbFilename=|DataDirectory|ReuseContext-20150613162702.mdf%3bInitial Catalog=ReuseContext-20150613162702%3bIntegrated Security=True" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Release\AutoScripts\ReuseContext-Deployment_SchemaAndData.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -174,8 +194,12 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Classes\Response.cs" />
+    <Compile Include="Classes\Servicos.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriasController.cs" />
+    <Compile Include="Controllers\AvatarController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstituicaosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -183,72 +207,127 @@
     <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Controllers\PedidosController.cs" />
     <Compile Include="Controllers\PessoasController.cs" />
-    <Compile Include="Controllers\RequireHttpsAttribute.cs" />
     <Compile Include="Controllers\SubCategoriasController.cs" />
     <Compile Include="Controllers\TiposController.cs" />
+    <Compile Include="Migrations\201509241250309_first.cs" />
+    <Compile Include="Migrations\201509241250309_first.Designer.cs">
+      <DependentUpon>201509241250309_first.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510062213393_reuse.cs" />
+    <Compile Include="Migrations\201510062213393_reuse.Designer.cs">
+      <DependentUpon>201510062213393_reuse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510112141315_imagens_videos.cs" />
+    <Compile Include="Migrations\201510112141315_imagens_videos.Designer.cs">
+      <DependentUpon>201510112141315_imagens_videos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510121332143_remove_videos.cs" />
+    <Compile Include="Migrations\201510121332143_remove_videos.Designer.cs">
+      <DependentUpon>201510121332143_remove_videos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510121337240_img.cs" />
+    <Compile Include="Migrations\201510121337240_img.Designer.cs">
+      <DependentUpon>201510121337240_img.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510121941313_pedido.cs" />
+    <Compile Include="Migrations\201510121941313_pedido.Designer.cs">
+      <DependentUpon>201510121941313_pedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510122028530_images_usuarios.cs" />
+    <Compile Include="Migrations\201510122028530_images_usuarios.Designer.cs">
+      <DependentUpon>201510122028530_images_usuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510122035399_images_usuarios2.cs" />
+    <Compile Include="Migrations\201510122035399_images_usuarios2.Designer.cs">
+      <DependentUpon>201510122035399_images_usuarios2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510122051377_images_usuarios3.cs" />
+    <Compile Include="Migrations\201510122051377_images_usuarios3.Designer.cs">
+      <DependentUpon>201510122051377_images_usuarios3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201510202241573_nemSeiOQueMexi.cs" />
+    <Compile Include="Migrations\201510202241573_nemSeiOQueMexi.Designer.cs">
+      <DependentUpon>201510202241573_nemSeiOQueMexi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Anuncio.cs" />
+    <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\Avatar.cs" />
+    <Compile Include="Models\Imagem.cs" />
+    <Compile Include="Models\Instituicao.cs" />
+    <Compile Include="Models\Mensagens.cs" />
+    <Compile Include="Models\SubCategoria.cs" />
+    <Compile Include="Models\Tipo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="RequireHttpsAttribute.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506131934516_InitialCreate.cs" />
-    <Compile Include="Migrations\201506131934516_InitialCreate.Designer.cs">
-      <DependentUpon>201506131934516_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506191848441_pessoaBairro.cs" />
-    <Compile Include="Migrations\201506191848441_pessoaBairro.Designer.cs">
-      <DependentUpon>201506191848441_pessoaBairro.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506221914037_anuncioImg.cs" />
-    <Compile Include="Migrations\201506221914037_anuncioImg.Designer.cs">
-      <DependentUpon>201506221914037_anuncioImg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507022349051_mensagens.cs" />
-    <Compile Include="Migrations\201507022349051_mensagens.Designer.cs">
-      <DependentUpon>201507022349051_mensagens.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507052059358_mensagemRemString.cs" />
-    <Compile Include="Migrations\201507052059358_mensagemRemString.Designer.cs">
-      <DependentUpon>201507052059358_mensagemRemString.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507071828484_tipoAnuncioMensagem.cs" />
-    <Compile Include="Migrations\201507071828484_tipoAnuncioMensagem.Designer.cs">
-      <DependentUpon>201507071828484_tipoAnuncioMensagem.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507081730286_remid.cs" />
-    <Compile Include="Migrations\201507081730286_remid.Designer.cs">
-      <DependentUpon>201507081730286_remid.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201507081845417_anuncioAtivo.cs" />
-    <Compile Include="Migrations\201507081845417_anuncioAtivo.Designer.cs">
-      <DependentUpon>201507081845417_anuncioAtivo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Anuncio.cs" />
-    <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Instituicao.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Mensagens.cs" />
     <Compile Include="Models\Pessoa.cs" />
     <Compile Include="Models\ReuseContext.cs" />
-    <Compile Include="Models\SubCategoria.cs" />
-    <Compile Include="Models\Tipo.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\images\300px-No_image_available.svg.png" />
+    <Content Include="assets\css\images\bg01.png" />
+    <Content Include="assets\css\images\usuario_0.png" />
+    <Content Include="assets\css\main.css" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\js\ie\html5shiv.js" />
+    <Content Include="assets\js\ie\PIE.htc" />
+    <Content Include="assets\js\ie\respond.min.js" />
+    <Content Include="assets\js\jquery.dropotron.min.js" />
+    <Content Include="assets\js\jquery.min.js" />
+    <Content Include="assets\js\main.js" />
+    <Content Include="assets\js\skel.min.js" />
+    <Content Include="assets\js\util.js" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\jquery-2.1.4.min.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="assets\.sass-cache\1b4a6be16a6e35a023dcbff3df09a61afa5da4d1\main.scssc" />
+    <Content Include="assets\.sass-cache\5d78bc2f9bcb660d673545cac801696108c07ed1\_functions.scssc" />
+    <Content Include="assets\.sass-cache\5d78bc2f9bcb660d673545cac801696108c07ed1\_mixins.scssc" />
+    <Content Include="assets\.sass-cache\5d78bc2f9bcb660d673545cac801696108c07ed1\_skel.scssc" />
+    <Content Include="assets\.sass-cache\5d78bc2f9bcb660d673545cac801696108c07ed1\_vars.scssc" />
+    <Content Include="assets\.sass-cache\8b12063c3c6a2b7fee2960ded9ebbb11093b53be\v8.scssc" />
+    <Content Include="assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\fonts\FontAwesome.otf" />
+    <Content Include="assets\sass\ie8.scss" />
+    <Content Include="assets\sass\libs\_functions.scss" />
+    <Content Include="assets\sass\libs\_mixins.scss" />
+    <Content Include="assets\sass\libs\_skel.scss" />
+    <Content Include="assets\sass\libs\_vars.scss" />
+    <Content Include="assets\sass\main.scss" />
+    <None Include="Properties\PublishProfiles\reuse - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\reuse - FTP %283%29.pubxml" />
+    <None Include="Properties\PublishProfiles\reuse - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\reuse - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\reuse - Web Deploy.pubxml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\facebookShare.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -269,12 +348,12 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -297,49 +376,52 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Categorias\Create.cshtml" />
-    <Content Include="Views\Categorias\Delete.cshtml" />
-    <Content Include="Views\Categorias\Details.cshtml" />
-    <Content Include="Views\Categorias\Edit.cshtml" />
-    <Content Include="Views\Categorias\Index.cshtml" />
-    <Content Include="Views\SubCategorias\Create.cshtml" />
-    <Content Include="Views\SubCategorias\Delete.cshtml" />
-    <Content Include="Views\SubCategorias\Details.cshtml" />
-    <Content Include="Views\SubCategorias\Edit.cshtml" />
-    <Content Include="Views\SubCategorias\Index.cshtml" />
     <Content Include="Views\Usuarios\Create.cshtml" />
     <Content Include="Views\Usuarios\Delete.cshtml" />
     <Content Include="Views\Usuarios\Details.cshtml" />
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Index.cshtml" />
-    <Content Include="Views\Tipos\Create.cshtml" />
-    <Content Include="Views\Tipos\Delete.cshtml" />
-    <Content Include="Views\Tipos\Details.cshtml" />
-    <Content Include="Views\Tipos\Edit.cshtml" />
-    <Content Include="Views\Tipos\Index.cshtml" />
-    <Content Include="Views\Instituicaos\Create.cshtml" />
-    <Content Include="Views\Instituicaos\Delete.cshtml" />
-    <Content Include="Views\Instituicaos\Details.cshtml" />
-    <Content Include="Views\Instituicaos\Edit.cshtml" />
-    <Content Include="Views\Instituicaos\Index.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Anuncios\Create.cshtml" />
     <Content Include="Views\Anuncios\Delete.cshtml" />
     <Content Include="Views\Anuncios\Details.cshtml" />
     <Content Include="Views\Anuncios\Edit.cshtml" />
     <Content Include="Views\Anuncios\Index.cshtml" />
-    <Content Include="Views\Ofertas\Create.cshtml" />
+    <Content Include="Views\Categorias\Create.cshtml" />
+    <Content Include="Views\Categorias\Delete.cshtml" />
+    <Content Include="Views\Categorias\Details.cshtml" />
+    <Content Include="Views\Categorias\Edit.cshtml" />
+    <Content Include="Views\Categorias\Index.cshtml" />
+    <Content Include="Views\Instituicaos\Create.cshtml" />
+    <Content Include="Views\Instituicaos\Delete.cshtml" />
+    <Content Include="Views\Instituicaos\Details.cshtml" />
+    <Content Include="Views\Instituicaos\Edit.cshtml" />
+    <Content Include="Views\Instituicaos\Index.cshtml" />
     <Content Include="Views\Ofertas\Confirmar.cshtml" />
+    <Content Include="Views\Ofertas\Create.cshtml" />
     <Content Include="Views\Ofertas\Details.cshtml" />
     <Content Include="Views\Ofertas\Edit.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
+    <Content Include="Views\Pedidos\Confirmar.cshtml" />
     <Content Include="Views\Pedidos\Create.cshtml" />
     <Content Include="Views\Pedidos\Details.cshtml" />
     <Content Include="Views\Pedidos\Edit.cshtml" />
     <Content Include="Views\Pedidos\Index.cshtml" />
-    <Content Include="Views\Pedidos\Confirmar.cshtml" />
+    <Content Include="Views\SubCategorias\Create.cshtml" />
+    <Content Include="Views\SubCategorias\Delete.cshtml" />
+    <Content Include="Views\SubCategorias\Details.cshtml" />
+    <Content Include="Views\SubCategorias\Edit.cshtml" />
+    <Content Include="Views\SubCategorias\Index.cshtml" />
+    <Content Include="Views\Tipos\Create.cshtml" />
+    <Content Include="Views\Tipos\Delete.cshtml" />
+    <Content Include="Views\Tipos\Details.cshtml" />
+    <Content Include="Views\Tipos\Edit.cshtml" />
+    <Content Include="Views\Tipos\Index.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\File\" />
     <Folder Include="Views\Mensagens\" />
     <Folder Include="Views\Pessoas\" />
   </ItemGroup>
@@ -351,29 +433,35 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506131934516_InitialCreate.resx">
-      <DependentUpon>201506131934516_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509241250309_first.resx">
+      <DependentUpon>201509241250309_first.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506191848441_pessoaBairro.resx">
-      <DependentUpon>201506191848441_pessoaBairro.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510062213393_reuse.resx">
+      <DependentUpon>201510062213393_reuse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506221914037_anuncioImg.resx">
-      <DependentUpon>201506221914037_anuncioImg.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510112141315_imagens_videos.resx">
+      <DependentUpon>201510112141315_imagens_videos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507022349051_mensagens.resx">
-      <DependentUpon>201507022349051_mensagens.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510121332143_remove_videos.resx">
+      <DependentUpon>201510121332143_remove_videos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507052059358_mensagemRemString.resx">
-      <DependentUpon>201507052059358_mensagemRemString.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510121337240_img.resx">
+      <DependentUpon>201510121337240_img.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507071828484_tipoAnuncioMensagem.resx">
-      <DependentUpon>201507071828484_tipoAnuncioMensagem.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510121941313_pedido.resx">
+      <DependentUpon>201510121941313_pedido.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507081730286_remid.resx">
-      <DependentUpon>201507081730286_remid.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510122028530_images_usuarios.resx">
+      <DependentUpon>201510122028530_images_usuarios.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201507081845417_anuncioAtivo.resx">
-      <DependentUpon>201507081845417_anuncioAtivo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510122035399_images_usuarios2.resx">
+      <DependentUpon>201510122035399_images_usuarios2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510122051377_images_usuarios3.resx">
+      <DependentUpon>201510122051377_images_usuarios3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510202241573_nemSeiOQueMexi.resx">
+      <DependentUpon>201510202241573_nemSeiOQueMexi.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

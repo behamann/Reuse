@@ -4,19 +4,14 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
-
-    <ul class="nav navbar-nav navbar-right">
         <li>
             @Html.ActionLink("Olá " + User.Identity.Name.ToString() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
-    </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Registre-se", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Faça Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    <li>@Html.ActionLink("Registre-se", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Faça Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
 }

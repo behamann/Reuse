@@ -7,88 +7,101 @@
     var pedidos = p.getTop6Pedidos();
 }
 
-<div class="jumbotron">
-    <h1>Reuse</h1>
-    <p class="lead">Somos uma comunidade aonde todos podem ofertar o que não precisam e pedir pelo que necessita.
-    Gostou? Cadastre-se e faça parte dessa campanha! :) </p>
+<div class="box" id="banner">
+    <h2>Reuse</h2>
+    <p class="lead">
+        Somos uma comunidade aonde todos podem ofertar o que não precisam e pedir pelo que necessita.
+        Gostou? Cadastre-se e faça parte dessa campanha! :)
+    </p>
 </div>
 
-<p class="pull-right">
-    @Html.ActionLink("Criar Doação", "Create", "Ofertas")
-</p>
+<div id="main-wrapper">
+    <div class="container">
+        <div class="row 200%">
+            <div class="8u 12u(medium) important(medium)">
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Ofertas</h2>
-        <p> Aqueles itens que estão no fundo de sua garagem, no qual não se vendem fácil, podem ser anunciados aqui,
-            alguém que necessite disso pode entrar em contato com você e pedir pelo item, fazendo você ganhar mais espaço e
-            ainda ajudando quem precisa.
-        </p>
-        <p>@Html.ActionLink("Criar Oferta", "Create", "Ofertas", null, htmlAttributes: new { @class = "btn btn-default" })</p>
-    </div>
-    <div class="col-md-4">
-        <h2>Pedidos</h2>
-        <p>Precisa de alguma coisa? Crie um pedido e espere uma alma generosa ajudar você, recomendamos também criar pedidos de
-        coleta de itens de difícil descarte, pois assim várias pessoas saberão quem coleta os mesmos.</p>
-        <p>@Html.ActionLink("Criar Pedido", "Create", "Pedidos", null, htmlAttributes: new { @class = "btn btn-default" })</p>
-    </div>
-    <div class="col-md-4">
-        <h2>Caridades</h2>
-        <p>Suportamos também instituições de caridade para que essas se cadastrem no site, possam exibir suas causas e 
-        pedir por doações, encorajamos os usuários a doar seus itens desnecessários para essas instituições, levando a ajuda para
-        quem mais precisa</p>
-        <p>@Html.ActionLink("Ver Caridades", "Index", "Instituicaos", null, htmlAttributes: new { @class = "btn btn-default" })</p>
-    </div>
-</div>
+                <!-- Content -->
+                <div id="content">
+                    <section class="last">
+                        <h2>Ofertas</h2>
+                        <p>Aqueles itens que estão no fundo de sua garagem, no qual não se vendem fácil, podem ser anunciados aqui,
+                        alguém que necessite disso pode entrar em contato com você e pedir pelo item, fazendo você ganhar mais espaço e
+                        ainda ajudando quem precisa.</p><a class="button alt icon fa-file-text-o" href="/Ofertas/Create">Criar Oferta</a>
+                    </section>
+                </div>
 
-<p>Ultimas ofertas</p>
-<div class="row">
-    @foreach (var item in ofertas)
-    {
-        if (item.img == null)
-        {
-            img = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png";
-        }
-        else
-        {
-            img = item.img;
-        }
-
-        <div class="col-lg-4">
-            <div class="col-lg-6">
-                <img src="img" width="100" height="100" />
             </div>
-            <div class="col-lg-6">
-                <p>@Html.ActionLink(item.titulo, "Details/"+ item.anuncioID, "Ofertas")</p>
-                <p>Condição: @Html.DisplayFor(modelItem => item.condicao)</p>
-                <p>Localização: @Html.DisplayFor(modelItem => item.pessoa.cidade)</p>
+
+            <div class="4u 12u(medium)">
+
+                <!-- Sidebar -->
+                <div id="sidebar" style="overflow-y: scroll; height:350px; margin-right: 15px;">
+                    <section class="widget thumbnails">
+                        <h3>Ultimas Ofertas</h3>
+                        <div class="grid">
+                            <div class="row 50%">
+                                @foreach (var item in ofertas)
+                                {
+                                    <a href="/Ofertas/Details/@item.anuncioID">
+                                        <div class="8u">
+                                            @item.titulo
+                                            <img class="image fit" src="~/File?id=@item.imagens.First().imagemID" alt="@item.imagens.First().FileName" />
+                                            <p>Condição: @item.condicao <br />Localização: @item.pessoa.cidade - @item.pessoa.estado</p>
+                                        </div>
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
             </div>
         </div>
-    }
+    </div>
 </div>
-<br />
-<p>Ultimos pedidos</p>
-<div class="row">
-    @foreach (var item in pedidos)
-    {
-        if (item.img == null)
-        {
-            img = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png";
-        }
-        else
-        {
-            img = item.img;
-        }
 
-        <div class="col-lg-4">
-            <div class="col-lg-6">
-                <img src="img" width="100" height="100" />
+<div id="main-wrapper">
+    <div class="container">
+        <div class="row 200%">
+            <div class="8u 12u(medium) important(medium)">
+
+                <!-- Content -->
+                <div id="content">
+                    <section class="last">
+                        <h2>Pedidos</h2>
+                        <p>
+                            Precisa de alguma coisa? Crie um pedido e espere uma alma generosa ajudar você, recomendamos também criar pedidos de
+                            coleta de itens de difícil descarte, pois assim várias pessoas saberão quem coleta os mesmos.
+                        </p><a class="button alt icon fa-file-text-o" href="/Pedidos/Create">Criar Pedido</a>
+                    </section>
+                </div>
+
             </div>
-            <div class="col-lg-6">
-                <p>@Html.ActionLink(item.titulo, "Details/" + item.anuncioID, "Pedidos")</p>
-                <p>Condição: @Html.DisplayFor(modelItem => item.condicao)</p>
-                <p>Localização: @Html.DisplayFor(modelItem => item.pessoa.cidade), @Html.DisplayFor(modelItem => item.pessoa.estado)</p>
+
+            <div class="4u 12u(medium)">
+
+                <!-- Sidebar -->
+                <div id="sidebar" style="overflow-y: scroll; height:350px;margin-right: 15px;">
+                    <section class="widget thumbnails">
+                        <h3>Ultimos Pedidos</h3>
+                        <div class="grid">
+                            <div class="row 50%">                               
+                                @foreach (var item in pedidos)
+                                {
+                                    <a href="/Pedidos/Details/@item.anuncioID">
+                                        <div class="8u">
+                                            @item.titulo
+                                            <img class="image fit" src="~/File?id=@item.imagens.First().imagemID" alt="@item.imagens.First().FileName" />                                            
+                                            <p>Localização: @item.pessoa.cidade - @item.pessoa.estado</p>
+                                        </div>
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
             </div>
         </div>
-    }
+    </div>
 </div>

@@ -38,8 +38,15 @@ namespace Reuse.Controllers
 
         public Usuario Detalhes(string email)
         {
-            Usuario usuario = db.Usuarios.SqlQuery("SELECT * FROM dbo.Pessoas WHERE email = @email", new SqlParameter("@email", email)).First();
-            return usuario;
+            try
+            {
+                Usuario usuario = db.Usuarios.Where(a => a.email == email).FirstOrDefault();
+                return usuario;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro: "+ e.Message+ " Email: " + email + " StackTrace:" +e.StackTrace);
+            }
         }
 
         // GET: Usuarios/Create

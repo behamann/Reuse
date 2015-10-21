@@ -10,6 +10,8 @@
     <WebStackScaffolding_DbContextTypeFullName>Reuse.Models.ReuseContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsViewGenerationSelected>False</WebStackScaffolding_IsViewGenerationSelected>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
+    <NameOfLastUsedPublishProfile>reuse - Web Deploy</NameOfLastUsedPublishProfile>
+    <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>

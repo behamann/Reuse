@@ -3,11 +3,32 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Reuse.Models
 {
-    public class ExternalLoginConfirmationViewModel
+
+public class ExternalLoginConfirmationViewModel
     {
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+        [Required]
+        [Display(Name = "Nome")]
+        public string nome { get; set; }
+        [Required]
+        [Display(Name = "Endereço")]
+        public string endereco { get; set; }
+        [Required]
+        [StringLength(8)]
+        [Display(Name = "CEP")]
+        public string cep { get; set; }
+        [Required]
+        [Display(Name = "Bairro")]
+        public string bairro { get; set; }
+        [StringLength(10)]
+        [Display(Name = "Telefone")]
+        public string telefone { get; set; }
+        [Required]
+        [StringLength(10)]
+        [Display(Name = "Celular")]
+        public string celular { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -29,11 +50,11 @@ namespace Reuse.Models
         public string Provider { get; set; }
 
         [Required]
-        [Display(Name = "Code")]
+        [Display(Name = "Código")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
 
-        [Display(Name = "Remember this browser?")]
+        [Display(Name = "Lembrar esse navegador?")]
         public bool RememberBrowser { get; set; }
 
         public bool RememberMe { get; set; }
@@ -55,10 +76,10 @@ namespace Reuse.Models
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Senha")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Lembrar-me?")]
         public bool RememberMe { get; set; }
     }
 
@@ -72,11 +93,11 @@ namespace Reuse.Models
         [Required]
         [StringLength(100, ErrorMessage = "A {0} deve ser ao menos de {2} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Senha")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirme a senha")]
         [Compare("Password", ErrorMessage = "As senhas não coincidem.")]
         public string ConfirmPassword { get; set; }
 
@@ -89,27 +110,19 @@ namespace Reuse.Models
         public string endereco { get; set; }
 
         [Required]
-        [StringLength(9)]
+        [StringLength(8)]
         [Display(Name = "CEP")]
         public string cep { get; set; }
 
         [Display(Name = "Bairro")]
         public string bairro { get; set; }
-
-        [Required]
-        [Display(Name = "Cidade")]
-        public string cidade { get; set; }
-
-        [Required]
-        [Display(Name = "Estado")]
-        public string estado { get; set; }
-
-        [Required]
-        [Phone]
+        
+        [StringLength(10)]
         [Display(Name = "Telefone")]
         public string telefone { get; set; }
 
-        [Phone]
+        [Required]
+        [StringLength(10)]
         [Display(Name = "Celular")]
         public string celular { get; set; }
 
@@ -123,14 +136,14 @@ namespace Reuse.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "A {0} deve ser ao menos de {2} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Senha")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Confirme a senha")]
+        [Compare("Password", ErrorMessage = "As senhas não coincidem.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

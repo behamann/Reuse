@@ -8,7 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Reuse.Models;
 using PagedList;
-using System.Web.Routing;
+using System.Drawing;
+using Reuse.Classes;
 
 namespace Reuse.Controllers
 {
@@ -70,7 +71,7 @@ namespace Reuse.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Anuncio anuncio = db.Anuncios.Find(id);
+            Anuncio anuncio = db.Anuncios.Include(s => s.imagens).SingleOrDefault(s => s.anuncioID == id);
             if (anuncio == null)
             {
                 return HttpNotFound();
@@ -95,12 +96,38 @@ namespace Reuse.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "anuncioID,pessoaID,categoriaID,subCategoria,condicao,titulo,descricao,img,tipo")] Anuncio anuncio)
+        public ActionResult Create([Bind(Include = "anuncioID,pessoaID,categoriaID,subCategoria,condicao,titulo,descricao,tipo,video")] Anuncio anuncio, HttpPostedFileBase upload)
         {
             if (ModelState.IsValid)
             {
+                if (upload != null && upload.ContentLength > 0)
+                {
+                    var imagem = new Imagem
+                    {
+                        FileName = System.IO.Path.GetFileName(upload.FileName),
+                        ContentType = upload.ContentType
+                    };
+                    using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                    {
+                        imagem.Content = reader.ReadBytes(upload.ContentLength);
+                    }
+                    anuncio.imagens = new List<Imagem> { imagem };
+                }
+                else
+                {
+                    var imagem = new Imagem
+                    {
+                        FileName = "Não Disponivel",
+                        ContentType = "image/png"
+                    };
+                    Bitmap bmp = new Bitmap(Image.FromFile(Server.MapPath("~/assets/css/images/300px-No_image_available.svg.png")));
+                    imagem.Content = Servicos.imageToByteArray(bmp);
+                    anuncio.imagens = new List<Imagem> { imagem };
+                }
                 anuncio.pessoaID = db.Pessoas.Where(a => a.email == User.Identity.Name).First().pessoaID;
                 anuncio.tipo = true;
+                if (anuncio.video != null)
+                    anuncio.video = anuncio.video.Split(new char[] { '=' })[1];
                 anuncio.ativo = true;
                 db.Anuncios.Add(anuncio);
                 db.SaveChanges();
@@ -134,7 +161,7 @@ namespace Reuse.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "anuncioID,pessoaID,categoriaID,subCategoria,condicao,titulo,descricao,img,tipo")] Anuncio anuncio)
+        public ActionResult Edit([Bind(Include = "anuncioID,pessoaID,categoriaID,subCategoria,condicao,titulo,descricao,tipo")] Anuncio anuncio)
         {
             if (ModelState.IsValid)
             {
@@ -199,8 +226,18 @@ namespace Reuse.Controllers
            return db.Anuncios.Include(a => a.categoria)
                     .Include(a => a.pessoa)
                     .Where(a => a.ativo == true)
-                    .Where(a => a.tipo == true).Take(6).ToList();
+                    .Where(a => a.tipo == true)
+                    .Take(6).ToList();
         }
+
+        public List<Anuncio> getOfertasByID(string email)
+        {
+            return db.Anuncios.Include(a => a.categoria)
+                    .Include(a => a.pessoa)
+                    .Where(a => a.ativo == true)
+                    .Where(a => a.tipo == true)
+                    .Where(a => a.pessoa.email == email).ToList();
+        }        
 
         protected override void Dispose(bool disposing)
         {
@@ -210,5 +247,6 @@ namespace Reuse.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

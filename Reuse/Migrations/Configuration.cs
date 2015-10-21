@@ -10,7 +10,6 @@ namespace Reuse.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "Reuse.Models.ReuseContext";
         }
 
         protected override void Seed(Reuse.Models.ReuseContext context)

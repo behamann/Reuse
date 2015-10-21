@@ -68,10 +68,7 @@ namespace Reuse
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequireDigit = true
             };
 
             // Configure user lockout defaults
@@ -83,12 +80,12 @@ namespace Reuse
             // You can write your own provider and plug it in here.
             manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser>
             {
-                MessageFormat = "Your security code is {0}"
+                MessageFormat = "Seu código de segurança é {0}"
             });
             manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser>
             {
                 Subject = "Security Code",
-                BodyFormat = "Your security code is {0}"
+                BodyFormat = "Seu código de segurança é {0}"
             });
             manager.EmailService = new EmailService();
             manager.SmsService = new SmsService();
