@@ -389,7 +389,7 @@ namespace Reuse.Controllers
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    ViewBag.Nome = loginInfo.DefaultUserName;
+                    ViewBag.Nome = loginInfo.ExternalIdentity.Name;
                     ViewBag.Email = loginInfo.Email;
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }

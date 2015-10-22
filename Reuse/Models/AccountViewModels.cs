@@ -6,27 +6,27 @@ namespace Reuse.Models
 
 public class ExternalLoginConfirmationViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Email")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Nome")]
         public string nome { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Endereço")]
         public string endereco { get; set; }
-        [Required]
-        [StringLength(8)]
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        [StringLength(8, ErrorMessage = "Maximo de 8 caracteres")]
         [Display(Name = "CEP")]
         public string cep { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Bairro")]
         public string bairro { get; set; }
-        [StringLength(10)]
+        [StringLength(10, ErrorMessage = "Maximo de 10 caracteres")]
         [Display(Name = "Telefone")]
         public string telefone { get; set; }
-        [Required]
-        [StringLength(10)]
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        [StringLength(10, ErrorMessage = "Maximo de 10 caracteres")]
         [Display(Name = "Celular")]
         public string celular { get; set; }
     }
@@ -46,10 +46,10 @@ public class ExternalLoginConfirmationViewModel
 
     public class VerifyCodeViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Campo Obrigatório")]
         public string Provider { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Código")]
         public string Code { get; set; }
         public string ReturnUrl { get; set; }
@@ -62,19 +62,19 @@ public class ExternalLoginConfirmationViewModel
 
     public class ForgotViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Email")]
-        [EmailAddress]
+        [EmailAddress(ErrorMessage = "Informe um email válido")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo Obrigatório")]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; }
@@ -85,13 +85,13 @@ public class ExternalLoginConfirmationViewModel
 
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        [EmailAddress(ErrorMessage = "Email Inválido")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "A {0} deve ser ao menos de {2} caracteres.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        [StringLength(100, ErrorMessage = "A senha deve ser ao menos de 6 caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; }
@@ -101,28 +101,28 @@ public class ExternalLoginConfirmationViewModel
         [Compare("Password", ErrorMessage = "As senhas não coincidem.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Nome")]
         public string nome { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Endereço")]
         public string endereco { get; set; }
 
-        [Required]
-        [StringLength(8)]
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        [StringLength(8, ErrorMessage = "Maximo de 8 caracteres")]
         [Display(Name = "CEP")]
         public string cep { get; set; }
 
         [Display(Name = "Bairro")]
         public string bairro { get; set; }
         
-        [StringLength(10)]
+        [StringLength(10, ErrorMessage = "Maximo de 10 caracteres")]
         [Display(Name = "Telefone")]
         public string telefone { get; set; }
 
-        [Required]
-        [StringLength(10)]
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        [StringLength(10, ErrorMessage = "Maximo de 10 caracteres")]
         [Display(Name = "Celular")]
         public string celular { get; set; }
 
@@ -130,13 +130,13 @@ public class ExternalLoginConfirmationViewModel
 
     public class ResetPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        [EmailAddress(ErrorMessage = "Email inválido")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "A {0} deve ser ao menos de {2} caracteres.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        [StringLength(100, ErrorMessage = "A senha deve ser ao menos de 6 caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Senha")]
         public string Password { get; set; }
@@ -151,8 +151,8 @@ public class ExternalLoginConfirmationViewModel
 
     public class ForgotPasswordViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Campo Obrigatório")]
+        [EmailAddress(ErrorMessage = "Email inválido")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

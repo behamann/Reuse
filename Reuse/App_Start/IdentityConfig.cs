@@ -52,7 +52,7 @@ namespace Reuse
         public ApplicationUserManager(IUserStore<ApplicationUser> store)
             : base(store)
         {
-        }
+        }       
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
         {
@@ -67,9 +67,9 @@ namespace Reuse
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 6,
-                RequireDigit = true
+                RequiredLength = 6
             };
+            
 
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
