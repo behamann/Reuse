@@ -4,16 +4,19 @@
     ViewBag.Title = "Confirmar";
 }
 
-<h2>Confirmar troca</h2>
+<div class="row box">
+    <h2>Confirmar troca</h2>
 
-<h3>Ao confirmar a troca o anuncio será desativado e o usuário admite que está de acordo com o doador/pedinte.</h3>
-<div>
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+    <h3>Ao confirmar a troca o anuncio será desativado e o usuário admite que está de acordo com o doador/pedinte.</h3>
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Confirmar" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+            <div class="form-actions no-color">
+                <input type="submit" value="Confirmar" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
 </div>

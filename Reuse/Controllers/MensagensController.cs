@@ -46,7 +46,7 @@ namespace Reuse.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MensagemID,Conteudo,DataPostada,PessoaIDRem,PessoaIDDes")] Mensagem mensagem)
+        public ActionResult Create([Bind(Include = "MensagemID,DataPostada,Remetente,Destinatario")] Mensagem mensagem)
         {
             if (ModelState.IsValid)
             {

@@ -184,3 +184,4 @@ C:\Users\the_b\Documents\Visual Studio 2015\Projects\Reuse\Reuse\Reuse\obj\Debug
 C:\Users\the_b\Documents\Visual Studio 2015\Projects\Reuse\Reuse\Reuse\obj\Debug\Reuse.Migrations.nemSeiOQueMexi.resources
 C:\Users\the_b\Documents\Visual Studio 2015\Projects\Reuse\Reuse\Reuse\bin\pt-br\System.Web.Mvc.resources.dll
 C:\Users\the_b\Documents\Visual Studio 2015\Projects\Reuse\Reuse\Reuse\obj\Debug\Reuse.Properties.Resources.resources
+C:\Users\the_b\Documents\Visual Studio 2015\Projects\Reuse\Reuse\Reuse\obj\Debug\Reuse.Migrations.mensagens.resources

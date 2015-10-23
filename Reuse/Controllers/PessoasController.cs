@@ -120,7 +120,7 @@ namespace Reuse.Controllers
             var mensagens = new List<Mensagem>();
             try
             {
-                mensagens = db.Mensagems.Where(m => m.PessoaDes == name).ToList();
+                mensagens = db.Mensagems.Where(m => m.Destinatario.Name == name).ToList();
                 return mensagens;
             }
             catch (Exception e)

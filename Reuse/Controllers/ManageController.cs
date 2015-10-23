@@ -55,12 +55,12 @@ namespace Reuse.Controllers
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
+                message == ManageMessageId.ChangePasswordSuccess ? "Sua senha foi modificada"
+                : message == ManageMessageId.SetPasswordSuccess ? "Sua senha foi definida"
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.Error ? "Um erro ocorreu, contate-nos o porquê do mesmo caso precise"
+                : message == ManageMessageId.AddPhoneSuccess ? "Seu número de celular foi adicionado"
+                : message == ManageMessageId.RemovePhoneSuccess ? "Seu número de celular foi removido"
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -124,7 +124,7 @@ namespace Reuse.Controllers
                 var message = new IdentityMessage
                 {
                     Destination = model.Number,
-                    Body = "Your security code is: " + code
+                    Body = "Seu código é: " + code
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
@@ -191,7 +191,7 @@ namespace Reuse.Controllers
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Failed to verify phone");
+            ModelState.AddModelError("", "Falha ao verificar celular");
             return View(model);
         }
 
@@ -280,8 +280,8 @@ namespace Reuse.Controllers
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                message == ManageMessageId.RemoveLoginSuccess ? "O login externo foi removido."
+                : message == ManageMessageId.Error ? "Aconteceu um erro, contate-nos sobre caso precise."
                 : "";
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user == null)

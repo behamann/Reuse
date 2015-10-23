@@ -12,10 +12,13 @@
         <hr />        
         <dl class="dl-horizontal">
             <div style="margin-left: 95px;">
-                <img src="~/Avatar?id=@Model.usuario.avatar.First().avatarID" alt="imagem" width="150" height="150" />
+                @if (@Model.usuario.avatar.Count > 0)
+                {
+                    <img src="~/Avatar?id=@Model.usuario.avatar.First().avatarID" alt="imagem" width="150" height="150" />
+                }
             </div>
             <dt>Nome:</dt>
-            <dd>@Model.usuario.nome</dd>
+            <dd>@Model.usuario.Name</dd>
             <dt>Email:</dt>
             <dd>@Model.usuario.email</dd>
             <dt>Senha:</dt>
@@ -76,18 +79,50 @@
         {
             foreach (var item in Model.mensagens)
             {
+                var tipo = "";
+                if (item.Anuncio.tipo == false)
+                {
+                    tipo = "Pedidos";
+                }
+                else
+                {
+                    tipo = "Ofertas";
+                }                
                 <div class="alert alert-warning">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <p>Nova mensagem de: @Html.ActionLink(item.PessoaRem, "Details/" + item.RemID, "Usuarios")</p>
-                    @if (item.TipoAnuncio == "Pedidos")
+                    <p>Nova mensagem de: @Html.ActionLink(item.Remetente.Name, "Details/" + item.Remetente.pessoaID, tipo)</p>
+                    @if (tipo == "Pedidos")
                     {
-                        <p>Quero doar o item @Html.ActionLink(item.Conteudo, "Details/" + item.AnuncioID, item.TipoAnuncio) para você! Acesse meu perfil para contato!</p>
+                        <p>Quero doar o item @Html.ActionLink(item.Anuncio.titulo, "Details/" + item.Anuncio.anuncioID, tipo) para você! Segue meu contato:</p>
+                        <span>Endereço: @item.Remetente.endereco</span><br />
+                        <span>Cep: @item.Remetente.cep</span><br />
+                        if (item.Remetente.bairro != null)
+                        {
+                            <span>Bairro: @item.Remetente.bairro</span><br />
+                        }
+                        <span>Localização: @item.Remetente.cidade - @item.Remetente.estado</span><br />
+                        if (item.Remetente.telefone != null) { 
+                            <span>Telefone: @item.Remetente.telefone</span><br />
+                        }
+                        <span>Celular: @item.Remetente.celular</span>
                     }
                     else
                     {
-                        <p>Preciso do seu item: @Html.ActionLink(item.Conteudo, "Details/" + item.AnuncioID, item.TipoAnuncio). Acesse meu perfil para contato!</p>
+                        <p>Preciso do seu item: @Html.ActionLink(item.Anuncio.titulo, "Details/" + item.Anuncio.anuncioID, tipo). Segue meu contato:</p>
+                        <span>Endereço: @item.Remetente.endereco</span><br />
+                        <span>Cep: @item.Remetente.cep</span><br />
+                        if (item.Remetente.bairro != null)
+                        {
+                            <span>Bairro: @item.Remetente.bairro</span><br />
+                        }
+                        <span>Localização: @item.Remetente.cidade - @item.Remetente.estado</span><br />
+                        if (item.Remetente.telefone != null)
+                        {
+                            <span>Telefone: @item.Remetente.telefone</span><br />
+                        }
+                        <span>Celular: @item.Remetente.celular</span>
                     }
-                    @Html.ActionLink("Confirmar troca", "Confirmar/" + item.AnuncioID, item.TipoAnuncio, new { MensagemID = item.MensagemID }, null);
+                    @Html.ActionLink("Confirmar troca", "Confirmar/" + item.Anuncio.anuncioID, tipo, new { MensagemID = item.MensagemID }, null);
                 </div>
             }
         }

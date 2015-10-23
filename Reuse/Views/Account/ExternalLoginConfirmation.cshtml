@@ -2,78 +2,79 @@
 @{
     ViewBag.Title = "Registro";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>Associe sua conta do @ViewBag.LoginProvider.</h3>
+<div class="row box">
+    <h2 style="margin: 0;">Associe sua conta do @ViewBag.LoginProvider.</h2>
 
-@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    
-    <p class="text-info">
-        Você autenticou-se com sucesso usando o <strong>@ViewBag.LoginProvider</strong>.
-        Continue seu registro no site completando os dados abaixo:
-    </p>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @value = ViewBag.Email })
-            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.nome, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.nome, new { htmlAttributes = new { @class = "form-control", @value = ViewBag.Nome } })
-            @Html.ValidationMessageFor(m => m.nome, "", new { @class = "text-danger" })
+        <p class="text-info">
+            Você autenticou-se com sucesso usando o <strong>@ViewBag.LoginProvider</strong>.
+            Continue seu registro no site completando os dados abaixo:
+        </p>
+        <h5><em>Campos com * são obrigatórios</em></h5>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label required" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @value = ViewBag.Email })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.endereco, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.endereco, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.endereco, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.cep, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.cep, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.cep, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.nome, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                <input class="form-control" data-val="true" data-val-required="Campo Obrigatório" id="nome" name="nome" type="text" value="@ViewBag.Nome">
+                @Html.ValidationMessageFor(m => m.nome, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.endereco, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.endereco, new { htmlAttributes = new { @class = "form-control required" } })
+                @Html.ValidationMessageFor(m => m.endereco, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.bairro, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.bairro, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.bairro, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.cep, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.cep, new { htmlAttributes = new { @class = "form-control required", @type = "number" } })
+                @Html.ValidationMessageFor(m => m.cep, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.telefone, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.telefone, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.telefone, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.bairro, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.bairro, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.bairro, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.celular, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(m => m.celular, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(m => m.celular, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.telefone, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.telefone, new { htmlAttributes = new { @class = "form-control", @type = "number" } })
+                @Html.ValidationMessageFor(m => m.telefone, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Registrar" />
-        </div>
-    </div>
-}
 
+        <div class="form-group">
+            @Html.LabelFor(m => m.celular, htmlAttributes: new { @class = "control-label col-md-2 required" })
+            <div class="col-md-10">
+                @Html.EditorFor(m => m.celular, new { htmlAttributes = new { @class = "form-control required", @type = "number" } })
+                @Html.ValidationMessageFor(m => m.celular, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Registrar" />
+            </div>
+        </div>
+    }
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

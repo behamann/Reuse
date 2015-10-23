@@ -19,7 +19,6 @@ public class ExternalLoginConfirmationViewModel
         [StringLength(8, ErrorMessage = "Maximo de 8 caracteres")]
         [Display(Name = "CEP")]
         public string cep { get; set; }
-        [Required(ErrorMessage = "Campo Obrigatório")]
         [Display(Name = "Bairro")]
         public string bairro { get; set; }
         [StringLength(10, ErrorMessage = "Maximo de 10 caracteres")]

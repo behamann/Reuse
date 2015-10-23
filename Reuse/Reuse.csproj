@@ -251,6 +251,10 @@
     <Compile Include="Migrations\201510202241573_nemSeiOQueMexi.Designer.cs">
       <DependentUpon>201510202241573_nemSeiOQueMexi.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201510222309284_mensagens.cs" />
+    <Compile Include="Migrations\201510222309284_mensagens.Designer.cs">
+      <DependentUpon>201510222309284_mensagens.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Anuncio.cs" />
     <Compile Include="Models\Categoria.cs" />
@@ -532,6 +536,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510202241573_nemSeiOQueMexi.resx">
       <DependentUpon>201510202241573_nemSeiOQueMexi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201510222309284_mensagens.resx">
+      <DependentUpon>201510222309284_mensagens.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

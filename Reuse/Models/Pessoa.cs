@@ -13,7 +13,7 @@ namespace Reuse.Models
         public int pessoaID { get; set; }
 
         [DisplayName("Nome")]
-        public String nome { get; set; }
+        public String Name { get; set; }
         [DisplayName("Email")]
         public String email { get; set; }
         [DisplayName("Endereço")]

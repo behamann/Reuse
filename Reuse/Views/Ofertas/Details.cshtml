@@ -5,30 +5,27 @@
 }
 
 <div>
-    @Html.ActionLink("Voltar", "Index")
+    @Html.ActionLink("Voltar as ofertas", "Index")
 </div>
 
-<div class="12u">    
+<div class="12u">
     <!-- Box -->
     <section class="box feature 12u" style="display: inline-flex;">
-        <a href="#" class="inner image">
-            <img src="~/File?id=@Model.imagens.First().imagemID" alt="imagem" width="200" height="200" />
+        <a href="#" class="inner image fit">
+            <img src="~/File?id=@Model.imagens.First().imagemID" alt="imagem" style="width: 70%; margin-left: 20%;">
         </a>
         <div class="inner 12u">
             <header>
                 <h2>@Model.titulo</h2>
             </header>
-            <p>Condição: @Model.condicao</p>
-            <p>Categoria: @Model.categoria.titulo - @Model.subCategoria</p>
+            <p><strong>Condição:</strong> @Model.condicao</p>
+            <p><strong>Categoria:</strong> @Model.categoria.titulo - @Model.subCategoria</p>
             @Html.ActionLink("Eu Preciso!", "PegarItem", new
-           {
-               anuncioID = Model.anuncioID,
-               titulo = Model.titulo,
-               tipoAnuncio = "Ofertas",
-               remetente = User.Identity.Name.ToString(),
-               destinatario = Model.pessoa.email
-           }, htmlAttributes: new { @class = "btn btn-default" })
-
+            {
+                anuncio = Model,
+                remetente = User.Identity.Name.ToString(),
+                destinatario = Model.pessoa
+            }, htmlAttributes: new { @class = "btn btn-default" })
             <a class="btn btn-default" target="popup"
                onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://reuse.gear.host/Ofertas/Details/@Model.anuncioID', 'name', 'width=600,height=400')">
                 <img src="http://wap.timotta.com/assets/logo-facebook-pequeno-075bec2439cc1f5d31f6e50b2592926a.gif" /> Compartilhar
@@ -42,7 +39,7 @@
 </div>
 
 <br />
-<div class="12u">
+<div class="row">
     <!-- Box -->
     <section class="box feature 12u">
         <div class="inner 12u">
@@ -64,7 +61,7 @@
 </div>
 
 <br />
-<div class="12u">
+<div class="row">
     <!-- Box -->
     <section class="box feature 12u">
         <div class="inner 12u">

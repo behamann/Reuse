@@ -1471,6 +1471,7 @@
 	}
 
 	form input[type="text"],
+    form input[type="number"],
 	form input[type="email"],
 	form input[type="password"],
 	form select,
@@ -1479,7 +1480,7 @@
 		display: block;
 		width: 100%;
 		border-radius: 8px;
-		border: solid 1px #eee;
+		border: 2px solid #aaa;
 	}
 
 		form input[type="text"]:focus,
@@ -1855,6 +1856,7 @@
 
 	#header-wrapper {
 		padding: 4.5em 0 1em 0;
+        margin-bottom: 3%;
 	}
 
 	#features-wrapper {
@@ -1927,7 +1929,7 @@
 		#nav ul li {
 			float: left;
 			line-height: 4.5em;
-			padding-left: 1.5em;
+			padding-left: 2.5em;
 		}
 
 			#nav ul li a, #nav ul li span {

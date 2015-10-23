@@ -44,7 +44,7 @@ namespace Reuse.Controllers
 
             if (!String.IsNullOrEmpty(searchNome))
             {
-                pessoas = pessoas.Where(s => s.nome.Contains(searchNome));
+                pessoas = pessoas.Where(s => s.Name.Contains(searchNome));
             }
 
             if (searchTipo != null)
@@ -59,7 +59,7 @@ namespace Reuse.Controllers
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            pessoas = pessoas.OrderBy(a => a.nome);
+            pessoas = pessoas.OrderBy(a => a.Name);
             return View(pessoas.ToPagedList(pageNumber, pageSize));
         }
 

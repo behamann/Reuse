@@ -160,7 +160,7 @@ namespace Reuse.Controllers
                 {
                     UsuariosController us = new UsuariosController();
                     Usuario u = new Usuario();
-                    u.nome = model.nome;
+                    u.Name = model.nome;
                     u.email = model.Email;
                     u.endereco = model.endereco;
                     u.cep = model.cep;
@@ -424,7 +424,7 @@ namespace Reuse.Controllers
                     {
                         UsuariosController us = new UsuariosController();
                         Usuario u = new Usuario();
-                        u.nome = model.nome;
+                        u.Name = model.nome;
                         u.email = model.Email;
                         u.endereco = model.endereco;
                         u.cep = model.cep;

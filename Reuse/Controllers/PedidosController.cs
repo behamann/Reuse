@@ -205,18 +205,18 @@ namespace Reuse.Controllers
             return RedirectToAction("Index", new { success = 2 });
         }
 
-        public ActionResult DoarItem(int anuncioID, String titulo, String tipoAnuncio, String remetente, String destinatario)
+        public ActionResult DoarItem(Anuncio anuncio, string remetente, Pessoa destinatario)
         {
             if (remetente == null)
             {
                 return RedirectToAction("Login", "Account");
             }
-            if (destinatario == User.Identity.Name)
+            if (destinatario.Name == User.Identity.Name)
             {
                 return RedirectToAction("Index", new { errorSameUser = 1 });
             }
             var user = new UsuariosController().Detalhes(remetente);
-            var mensagem = new Mensagem(anuncioID, user.pessoaID, tipoAnuncio, titulo, user.nome, destinatario );
+            var mensagem = new Mensagem(anuncio, user, destinatario );
             MensagensController mc = new MensagensController();
             mc.Create(mensagem);
             return RedirectToAction("Index", new { success = 1 });

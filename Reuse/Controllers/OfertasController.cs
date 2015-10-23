@@ -203,19 +203,18 @@ namespace Reuse.Controllers
             return RedirectToAction("Index", new { success = 2 });
         }
 
-        public ActionResult PegarItem(int anuncioID, String titulo, String tipoAnuncio, String remetente, String destinatario)
+        public ActionResult PegarItem(Anuncio anuncio, String remetente, Pessoa destinatario)
         {
             if (remetente == null)
             {
                 return RedirectToAction("Login", "Account");
             }
-            if (destinatario == User.Identity.Name)
+            if (destinatario.Name == User.Identity.Name)
             {
                 return RedirectToAction("Index", new { error = 1 });
             }
             var user = new UsuariosController().Detalhes(remetente);
-            var mensagem = new Mensagem(anuncioID, user.pessoaID,  tipoAnuncio, titulo,
-                user.nome, destinatario);
+            var mensagem = new Mensagem(anuncio, user, destinatario);
             MensagensController mc = new MensagensController();
             mc.Create(mensagem);
             return RedirectToAction("Index", new { success = 1 });

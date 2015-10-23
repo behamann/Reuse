@@ -5,29 +5,26 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar aos pedidos", "Index")
 </div>
 
 <div class="12u">
     <!-- Box -->
     <section class="box feature 12u" style="display: inline-flex;">
-        <a href="#" class="inner image">
-            <img src="~/File?id=@Model.imagens.First().imagemID" alt="imagem" width="50" height="100" />
+        <a href="#" class="inner image fit">
+            <img src="~/File?id=@Model.imagens.First().imagemID" alt="imagem" style="width: 70%; margin-left: 20%;">
         </a>
         <div class="inner 12u">
             <header>
                 <h2>@Model.titulo</h2>
             </header>
-            <p>Categoria: @Model.categoria.titulo - @Model.subCategoria</p>
+            <p><strong>Categoria:</strong> @Model.categoria.titulo - @Model.subCategoria</p>
             @Html.ActionLink("Eu Tenho!", "DoarItem", new
-       {
-           anuncioID = Model.anuncioID,
-           titulo = Model.titulo,
-           tipoAnuncio = "Pedidos",
-           remetente = User.Identity.Name.ToString(),
-           destinatario = Model.pessoa.email
-       }, htmlAttributes: new { @class = "btn btn-default" })
-
+            {
+                anuncioID = Model,
+                remetente = User.Identity.Name.ToString(),
+                destinatario = Model.pessoa
+            }, htmlAttributes: new { @class = "btn btn-default" })
             <a class="btn btn-default" target="popup"
                onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=https://reuse.gear.host/Ofertas/Details/@Model.anuncioID', 'name', 'width=600,height=400')">
                 <img src="http://wap.timotta.com/assets/logo-facebook-pequeno-075bec2439cc1f5d31f6e50b2592926a.gif" /> Compartilhar
@@ -39,7 +36,6 @@
         </div>
     </section>
 </div>
-
 <br />
 <div class="12u">
     <!-- Box -->
@@ -70,7 +66,13 @@
             <header>
                 <h2>Perfil do anunciante:</h2>
             </header>
-            <p>Nome: @Model.pessoa.nome</p>
+            <div class="2u">
+                <img src="~/File?id=@Model.imagens.First().imagemID" alt="imagem" width="100" height="100" />
+            </div>
+            <div class="10u">
+                <p>Nome: <a href="~/Usuarios/Details/@Model.pessoaID">@Model.pessoa.Name</a></p>
+                <p>Localização: @Model.pessoa.cidade - @Model.pessoa.estado</p>
+            </div>
         </div>
     </section>
 </div>

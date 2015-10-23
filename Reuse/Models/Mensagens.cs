@@ -8,23 +8,17 @@ namespace Reuse.Models
     public class Mensagem
     {
         public int MensagemID { get; set; }
-        public int AnuncioID { get; set; }
-        public int RemID { get; set; }
-        public String TipoAnuncio { get; set; }
-        public String Conteudo { get; set; }
+        public Anuncio Anuncio { get; set; }
         public DateTime DataPostada { get; set; }
-        public String PessoaRem { get; set; }
-        public String PessoaDes { get; set; }
+        public Usuario Remetente { get; set; }
+        public Pessoa Destinatario { get; set; }
 
-        public Mensagem(int anuncioID, int remid, String tipoAnuncio, String conteudo, String remetente, String destinatario)
+        public Mensagem(Anuncio anuncio, Usuario remetente, Pessoa destinatario)
         {
-            this.AnuncioID = anuncioID;
-            this.RemID = remid;
-            this.TipoAnuncio = tipoAnuncio;
-            this.Conteudo = conteudo;
+            this.Anuncio = anuncio;
             this.DataPostada = DateTime.Now;
-            this.PessoaRem = remetente;
-            this.PessoaDes = destinatario;
+            this.Remetente = remetente;
+            this.Destinatario = destinatario;
         }
 
         public Mensagem() { }
